@@ -1,7 +1,7 @@
 # Project git repository
 Dear Evaluator, Greetings!
 Hope you are doing well. I really appreciate your efforts for evaluating the coding task. I have completed the task to add an item to DB, Please have a look on the detailed inputs below:
-#### Project git repository
+#### ShopBridge
 We can find the complete code on git under development branch, please refer the git url https://github.com/rc156/ShopBridge Feel free to reach on the contact details provided in signature if any issues while accessing git repository. Code is updated under different directories as below:
 
 Backend - Contains the backend(asp.net web api) code.
