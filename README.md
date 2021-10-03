@@ -1,1 +1,1 @@
-"# ShopBridge" 
+# ShopBridge
