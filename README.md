@@ -31,54 +31,12 @@ When the form is valid, user can add item. Once item is added into DB, we can se
 Technical implementation
 Developed application can be considered as loosely coupled stand-alone application. We can deploy such applications on same or different servers. Such environment can benefit in individual frontend or backend development/deployment and performance boost in async way. The application has two major factors, frontend which is developed using angular and backend developed using asp.net web API.
 
-#### Frontend architecture
-Beginner development appoach is followed to develop frontend architecture where a component interact with web api using HTTP client. Tried to use Angular material for design but had some issues so its working partially, focused on functionality. Reactive form is used for form implementation, gives more control using ts file. Some inline styles are used for basic grid structure design.
-
-Backend architecture
-Intermediate/Expert approach is followed to develop backend architecture considering performance(async programing), generic and reusable code, use of OOPS concepts(interface,DI). Backend architecture includes several libraries i.e. N-Tier architecture holding individual objective, please find the details as below:
-
 #### WebAPI startup project (ShopBridge)
 
 This is the entry point project to which frontend application interacts directly.
 All APIs can be created under ShopBridge\Controllers\api directory.
 Includes single API at the moment i.e. ItemController with getAllItems() and AddItem() methods.
 This project holds reference of DataContract, Helper, Managers, MasterInterface and UnityContainer libraries. Each library targets single responsibility. Lets discuss objective/benefits of each library one by one below.
-#### DataContract
-
-DataContract can contain the ViewModel and StoredProcedure definations.
-Using this, frontend object can be bind to API parameter directly or viewModel can be returned as response object to frontend.
-Currently, we can find single sp defination under Backend\DataContract\StoredProcedure which is used to hold the item data to insert.
-Holds reference of MasterInterface, all viewModel/storedProcedure should implement interface, which helps us in registering types while application bootstrap.
-Helper
-
-As name states, the library can contain the common code which can be reused through out the application.
-For example, common utility methods, Constants, enums.
-Currently, we can find two contexts
-Constants => Constants are used to avoid data hardcoding.
-StoredProcedure(enum) => This enum contains the name of all CRUD sps used in the applications. Making it as enum benefits code redability and easy access of storedProcedure names.
-#### Managers
-
-This is the middle layer between api controller and Database, api should not interact with DB directly. Seperation of code.
-Here we can format the request/response object as per functional or technical requirement.
-For example, SQL select records are retrived in datatable so records can be mapped to respective List from datatable. Such kind of operations can performed in managers.
-Currently, we can find two manager i.e. DataBaseManager and ItemManager.
-Database manager holds all generic methods for basic CRUD operations like GetAll, AddRecord, Update-Delete(unavailable at the moment). Generic methods provides code reusability and minimizes the duplicate code.
-Database Manager interacts with database.
-ItemManager is the feature specific manager which holds feature specific methods that interacts with database manager to complete DB interaction for CRUD.
-#### MasterInterface
-
-As we already know that the application is loosely coupled, without interface it was not possible.
-This library holds all the interfaces required/used in the application.
-Currently we can find the Interfaces for Managers and StoredProcedures.
-MasterInterface includes an empty interface called IStoredProcedure which enable us to have generic implementation using interface, all stored procedure interface must implement IStoredProcedure. For example, if we see DatabaseManager.AddRecord() receives two params. first enum name and second is IStoredProcedure so this methods results generic and any feature can reuse the method to add an entity without any code changes.
-MasterInterfaces are also benificial to register and resolve the types(Class-Object).
-#### UnityContainer
-
-This library contains a static class and static method, which is used return the unity container.
-In order to create/get object of any viewModel, StoredProcedure, Manager we are using unity container.
-We can refer the RegisterType class inside the ShopBridge\App_Start where we register the types at application bootstrap and when ever user needs object, he/she can resolve using DI itself.
-Constructor dependency implementation can be observed as well.
-With the said terms, we can consider the application is scalable enough to extend implementation. Basic coding guidelines are strictly followed like naming conventions, code refactoring, code reusability, code readability, code commenting. SQL queries(SPs) are also written considering basic guidelines and to get grid records SQL JSON feature is used, a nice feature to boost performance by eliminating DB object to application object mapping, simply return JSON from SQL.
 
 #### Fields
 ItemName, Description, Price, Quantity 
@@ -93,7 +51,7 @@ Table Name - INV.tbItems
 Procedures - INV.sp_Items_Save, INV.sp_Items_Delete, INV.sp_Items_Bind
  
 #### Time Taken
-R&D - 2 Hours
+R&D and Project Setup - 2 Hours
 
 DataBase - 1 Hour
 
